@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Events</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <link rel="stylesheet" href="/static/style/style.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.pink-deep_orange.min.css" />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</head>
+<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+            <div class="mdl-layout--large-screen-only mdl-layout__header-row"> </div>
+            <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <h3 class="logo">Рекомендательный сервис</h3>
+                <div class="mdl-layout-spacer"></div>
+            </div>
+            <div class="mdl-layout--large-screen-only mdl-layout__header-row"> </div>
+        </header>
+        <main class="mdl-layout__content">
+            <div class="page-content" id="page-content">
+                <div class="search-box">
+                    <form action="/search" method="GET">
+                      <input type="text" placeholder="Поиск.." name="key">
+                      <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"><span class="material-icons"> search </span></button>
+                    </form>
+                </div>
+                <div class="mdl-grid">
+                    {% for event in events %}
+                        <div class="mdl-cell mdl-cell--4-col event-card mdl-card mdl-shadow--2dp"
+                             data-url="{{ event.image_url }}"
+                             id="{{loop.index}}">
+                            <div class="mdl-card__title"
+                                style="background: url('/static/images/{{ event.image_name }}') center / cover;"
+                                >
+                                <h2 class="mdl-card__title-text">{{event.category_name}}</h2>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                <p class="event__name">{{event.name}}</p>
+                                <p class="event__desc">{{event.short_description}}</p>
+                                <hr/>
+                                <p class="event__orgname">{{event.organization_name}}</p>
+                                <p class="event__addr">{{event.address_street}}</p>
+                                <hr/>
+                                <div class="mdl-grid mdl-grid--no-spacing">
+                                    <div class="mdl-cell mdl-cell--8-col">
+                                        <strong class="mdl-color-text--primary">
+                                            {{event.start_dt|strftime}}
+                                        </strong>
+                                    </div>
+                                    <div class="mdl-cell
+                                         mdl-cell--4-col" style="text-align:
+                                         right">
+                                        <strong class="mdl-color-text--black">
+                                            {% if event.price == 0: %}
+                                                Бесплатно
+                                            {% else %}
+                                                {{event.price}} руб.
+                                            {% endif %}
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
