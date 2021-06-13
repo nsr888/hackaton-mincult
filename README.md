@@ -20,4 +20,4 @@
 * Добавить другие источники данных
 * Возмжность создания индивидуальной витрины для пользователя
 
-![screenshot](https://github.com/nsr888/hackaton-mincult/screenshot.png?raw=true)
+![screenshot](https://github.com/nsr888/hackaton-mincult/blob/main/screenshot.png?raw=true)
