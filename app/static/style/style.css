@@ -1,40 +1,3 @@
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
-  src: local('Material Icons'),
-    local('MaterialIcons-Regular'),
-    url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
-    url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
-    url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
-}
-
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
-
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
-
-  /* Support for IE. */
-  font-feature-settings: 'liga';
-}
-
 /* Rules for sizing the icon. */
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
@@ -49,8 +12,34 @@
 .material-icons.md-light { color: rgba(255, 255, 255, 1); }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
 
-.logo{
-    text-align: center;
+.mdl-demo .mdl-layout:not(.is-small-screen) .mdl-layout__tab-bar,
+.mdl-demo .mdl-layout:not(.is-small-screen) .mdl-layout__tab-bar-container {
+  overflow: visible;
+}
+.mdl-demo .mdl-layout__tab-bar-container {
+  height: 64px;
+}
+.mdl-demo .mdl-layout__tab-bar {
+  padding: 0;
+  padding-left: 16px;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+.mdl-demo .mdl-layout__tab-bar .mdl-layout__tab {
+  height: 64px;
+  line-height: 64px;
+}
+/* .mdl-demo .mdl-layout__tab-bar .mdl-layout__tab.is-active::after { */
+/*   background-color: white; */
+/*   height: 4px; */
+/* } */
+.mdl-demo main > .mdl-layout__tab-panel {
+  padding: 8px;
+  padding-top: 48px;
+}
+.mdl-demo .mdl-layout__tab-bar-button {
+    display: none;
 }
 
 .event-card.mdl-card {
@@ -60,18 +49,26 @@
     max-width: 1020px;
     margin: 0 auto;
 }
+.logo__h3{
+    margin: 1rem 0 0;
+}
 .event-card > .mdl-card__title {
   color: #fff;
-  height: 176px;
+  height: 25vh;
 }
 .event-card > .mdl-card__menu {
   color: #fff;
 }
-
+hr {
+    border-top: 1px solid #eee;
+}
 .event__name {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: #333;
     font-weight: bold;
+}
+.event__desc {
+    font-size: 1.2rem;
 }
 .event__orgname,
 .event__addr,
@@ -89,10 +86,9 @@
 
 /* Style the search field */
 .search-box {
-    padding: .5rem;
+    padding: .3rem;
     border-radius: .5rem;
-    border: 1px solid #ccc;
-    background: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     margin: 1rem auto;
     max-width: 600px;
 }
@@ -101,11 +97,37 @@
   font-size: 17px;
   border: none;
   float: left;
-  width: 86%;
-  background: white;
+  width: 78%;
+  background: transparent;
+  color: rgba(255, 255, 255, 1);
 }
 
 .search-box input[type=text]:hover {
-  background: #f1f1f1;
+  /* color: rgba(255, 255, 255, 1); */
+  /* background: #f1f1f1; */
 }
 
+.event__img {
+    position: relative;
+}
+.button-like-delete,
+.button-like {
+    position: absolute;
+    right: 1rem;
+    bottom: -.5rem;
+}
+
+.btn-share {
+    position: absolute;
+    z-index: 99;
+    top: 8px;
+    right: 8px;
+}
+.button-whatsapp {
+    position: absolute;
+    right: 5.5rem;
+    bottom: -.5rem;
+}
+.share-nav__link {
+    text-decoration: none;
+}

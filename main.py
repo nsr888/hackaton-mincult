@@ -3,6 +3,8 @@ import sqlite3
 import json
 import os
 import requests
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 
 class bcolors:
@@ -46,7 +48,7 @@ def db_init(con):
             name varchar(128),
             short_description varchar(1024),
             description varchar(1024),
-            is_free number,
+            is_free bool,
             price number,
             start_dt date,
             end_dt date,
@@ -55,6 +57,12 @@ def db_init(con):
             category_sysname varchar(128),
             organization_name varchar(128),
             address_street varchar(128)
+        );
+    ''')
+    cursor.execute('''
+        create table if not exists DWH_FACT_CATEGORIES(
+            sysname varchar(128),
+            name varchar(128)
         );
     ''')
     con.commit()
@@ -74,6 +82,13 @@ def load2db(con, arr_dict):
             :organization_name, :address_street
         );
     ''', arr_dict)
+    cursor.execute('''
+        insert into DWH_FACT_CATEGORIES (
+            sysname,
+            name
+        ) select distinct category_sysname,category_name
+        from DWH_DIM_EVENTS_HIST;
+    ''')
     con.commit()
 
 
@@ -95,10 +110,12 @@ def download_image(url, filename):
 def get_data(con):
     headers = {'X-API-KEY':
             '746318251363e687cf159b3b87bc1cb33e33d35b03433a36abc5d08032144c7a'}
-    ft = '''{"data.general.start": {"$gt":"2021-06-13"},
-    "data.general.end": {"$lt":"2021-07-13"},
+    date_from = datetime.now().strftime('%Y-%m-%d')
+    date_to = (datetime.now() + relativedelta(months=+1)).strftime('%Y-%m-%d')
+    ft = '''{"data.general.start": {"$gt":"{date_from}"},
+    "data.general.end": {"$lt":"{date_to}"},
     "data.general.places[].locale.name":{"$eq":"Казань"}
-    }'''
+    }'''.replace('{date_from}', date_from).replace('{date_to}', date_to)
     payload = {'f': ft, 'o': 'data.general.start', 'l': 10}
     r = requests.get('https://opendata.mkrf.ru/v2/events/$', params=payload,
             headers=headers)
@@ -147,4 +164,5 @@ if __name__ == "__main__":
     con = sqlite3.connect('app.db')
     db_init(con)
     get_data(con)
+    showData(con, 'DWH_FACT_CATEGORIES')
     # showData(con, 'DWH_DIM_EVENTS_HIST')
