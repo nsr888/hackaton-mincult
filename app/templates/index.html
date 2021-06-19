@@ -76,11 +76,13 @@
                         {% if active == "show_liked" %}
                             Сохраненные мероприятия
                         {% endif %}
-                        {% if active == "7days"
-                            %}На 7 дней{% endif %}
+                        {% if active == "7days" %}
+                            На 7 дней
+                        {% endif %}
                         {% for cat in categories %}
-                            {% if active == cat.sysname %}{{cat.name}} в этом
-                            месяце{% endif %}
+                            {% if active == cat.sysname %}
+                                {{cat.name}} в этом месяце
+                            {% endif %}
                         {% endfor %}
 
                     </h1>
@@ -178,17 +180,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="mdl-card__menu"> -->
-                        <!--     <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"> -->
-                        <!--       <i class="material-icons">share</i> -->
-                        <!--     </button> -->
-                        <!-- </div> -->
-                        <!-- <button class="mdl-button mdl-js-button -->
-                        <!-- mdl-color-text--white -->
-                        <!-- mdl-js-ripple-effect mdl-button--icon btn-share" -->
-                        <!-- id="btn{{event.id}}"> -->
-                        <!--   <i class="material-icons">more_vert</i> -->
-                        <!-- </button> -->
                         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right
                         share-nav"
                             for="btn{{event.id}}">
@@ -219,55 +210,6 @@
     </div>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script>
-        $(function(){
-            //set status to true on load
-            {% if active == "show_liked" %}
-                $('#check')[0].MaterialSwitch.on();
-            {% endif %}
-
-            //toggle label
-            $('#check input').change(function(){
-                if($(this).is(':checked'))
-                {
-                    $(this).next().text("Скрыть сохраненные события");
-                    document.location.href = '/show_liked/';
-                }
-                else
-                {
-                    $(this).next().text("Показать сохраненные события");
-                    document.location.href = '/';
-                }
-            });
-            $('.button-like').on('click', function() {
-                var like_id = $(this).attr("id");
-                var data = {like_id};
-                //console.log(JSON.stringify(data));
-                $.ajax({
-                    type: "POST", 
-                    url: "/like", //localhost Flask
-                    data : JSON.stringify(data),
-                    contentType: "application/json",
-                    success: function (data) {
-                        console.log(data);
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-                $(this).removeClass('mdl-color--white');
-                $(this).removeClass('mdl-color-text--accent');
-                $(this).addClass('mdl-color--accent');
-                $(this).addClass('mdl-color-text--white');
-                /*
-                $.post('/like', {
-                    data: JSON.stringify(data),
-                  }, function(data) {
-                  console.log(data);
-                });
-                */
-            });
-        });
-    </script>
+    <script src="/static/js/script.js"></script>
 </body>
 </html>
